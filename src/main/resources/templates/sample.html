@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.pay.ordNo.value = Math.floor(Math.random() * 40);
+        document.bill.ordNo.value = Math.floor(Math.random() * 40);
+    });
+
+    let tid = "pstest102m01012406171029492894";
+
+    async function billPay() {
+        const param = {
+            bid: '',
+            payMethod: 'CARD',
+            ordNo: '35',
+            goodsNm: '테스트',
+            goodsAmt: '500',
+            goodsSplAmt: '',
+            goodsVat: '',
+            goodsSvsAmt: '',
+            quotaMon: '00',
+            ordNm: '온앤온',
+            ordTel: '0100000000',
+            ordEmail: '',
+            mbsUsrId: '',
+            mbsReserved: '',
+        }
+
+        const res = await fetch('/api/pg/bill/pay', {
+            method: "POST", // *GET, POST, PUT, DELETE 등
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(param), // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치해야 함
+        });
+
+        console.log(res.json());
+
+        res.json().then(value => tid = value.tid);
+    }
+
+    async function billCancel() {
+        const param = {
+            payMethod: 'CARD',
+            tid,
+            canAmt: '500',
+            canMsg: '테스트',
+            partCanFlg: '0'
+        }
+
+        const res = await fetch('/api/pg/bill/cancel', {
+            method: "POST", // *GET, POST, PUT, DELETE 등
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(param), // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치해야 함
+        });
+
+        console.log(res.json());
+    }
+
+    async function billKeyRemove() {
+
+        const res = await fetch('/api/pg/bill/remove', {
+            method: "POST", // *GET, POST, PUT, DELETE 등
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: 'pstest102mcb012406141526284616', // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치해야 함
+        });
+
+        console.log(res.json());
+    }
+
+    async function billDetail() {
+        const param = {
+            tid
+        }
+
+        const res = await fetch('/api/pg/bill/detail', {
+            method: "POST", // *GET, POST, PUT, DELETE 등
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(param), // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치해야 함
+        });
+
+        console.log(res.json());
+    }
+
+</script>
+<div>
+    <div style="height: 100px">
+        <form name="pay" action="/api/pg/standard/payForm" method="post" content="application/json">
+            <input type="hidden" name="payMethod" value="CARD">
+            <input type="hidden" name="cardCd" value="">
+            <input type="hidden" name="easyPayYN" value="N">
+            <input type="hidden" name="easyPayCd" value="">
+            <input type="hidden" name="trxCd" value="0">
+            <input type="hidden" name="noIntMonth" value="">
+            <input type="hidden" name="goodsNm" value="테스트상품">
+            <input type="hidden" name="ordNo" value="">
+            <input type="hidden" name="goodsAmt" value="200">
+            <input type="hidden" name="ordNm" value="온앤온">
+            <input type="hidden" name="ordTel" value="01000000000">
+            <input type="hidden" name="ordEmail" value="">
+            <input type="hidden" name="mbsUsrId" value="onandon">
+            <input type="hidden" name="notiUrl" value="http://localhost:8080/bill/test">
+            <input type="hidden" name="returnUrl" value="http://localhost:8080/bill/key/test">
+            <button>결제</button>
+        </form>
+    </div>
+    <div style="height: 100px">
+        <form name="inqTrans" action="/api/pg/standard/inqTrans" method="post" content="application/json">
+            <input type="hidden" name="mid" value="pstest100m">
+            <label>
+                <span>TID</span>
+                <input type="text" name="tid">
+                <span>주문번호</span>
+                <input type="text" name="ordNo">
+            </label>
+        </form>
+        <button onclick="document.inqTrans.submit()">결제 조회</button>
+    </div>
+    <div>
+        <form name="bill" action="/api/pg/bill/payForm" method="post" content="application/json">
+            <table class="tbl_sty02">
+                <tr>
+                    <td align="right">빌키 발급수단</td>
+                    <td align="left">
+                        <select name="payMethod">
+                            <option value="" selected="selected">전체</option>
+                            <option value="card">신용카드</option>
+                            <option value="phone">휴대폰</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">휴대폰 빌링 사용여부</td>
+                    <td align="left">
+                        <select name="billHpFlg">
+                            <option value="0" selected="selected">미사용</option>
+                            <option value="1">사용</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"> 상점 ID *</td>
+                    <td><input type="text" name="mid" value="pstest102m"></td>
+                </tr>
+                <tr>
+                    <td align="right">상품명 *</td>
+                    <td><input type="text" name="goodsNm" value="테스트"></td>
+                </tr>
+                <tr>
+                    <td align="right">주문번호 *</td>
+                    <td><input type="text" name="ordNo" value=""></td>
+                </tr>
+                <tr>
+                    <td align="right">결제금액 *</td>
+                    <td><input type="text" name="goodsAmt" value=""></td>
+                </tr>
+                <tr>
+                    <td align="right">구매자명 *</td>
+                    <td><input type="text" name="ordNm" value="온앤온"></td>
+                </tr>
+                <tr>
+                    <td align="right">구매자연락처</td>
+                    <td><input type="text" name="ordTel" value="010-0000-0000"></td>
+                </tr>
+                <tr>
+                    <td align="right">구매자이메일</td>
+                    <td><input type="text" name="ordEmail" value=""></td>
+                </tr>
+                <tr>
+                    <td align="right">고객 ID</td>
+                    <td><input type="text" name="mbsUsrId" value="user1234"></td>
+                </tr>
+            </table>
+            <input type="hidden" name="trxCd" value="0">
+        </form>
+        <button onclick="document.bill.submit()">빌키 발급</button>
+        <button onclick="billPay()">빌키 결제</button>
+        <button onclick="billCancel()">빌키 결제 취소</button>
+        <button onclick="billKeyRemove()">빌키 삭제</button>
+        <button onclick="billDetail()">빌링 내역</button>
+    </div>
+</div>
+</body>
+</html>

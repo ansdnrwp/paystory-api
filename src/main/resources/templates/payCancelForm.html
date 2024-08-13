@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <form name="stCancel" action="/api/pg/standard/cancel" method="post" content="application/json">
+        <table class="tbl_sty02">
+            <tr>
+                <td align="right">TID *</td>
+                <td align="left"><input type="text" name="tid" th:value="${request.tid}"></td>
+            </tr>
+            <tr>
+                <td align="right">취소금액 *</td>
+                <td align="left"><input type="text" name="canAmt" value=""></td>
+            </tr>
+            <tr>
+                <td>환불사유</td>
+                <td><input type="text" name="canMsg"></td>
+            </tr>
+            <tr>
+                <td align="right">부분취소 여부 *</td>
+                <td align="left">
+                    <select id="partCanFlg" name="partCanFlg">
+                        <option value="0">전체 취소</option>
+                        <option value="1">부분 취소</option>
+                    </select>
+                </td>
+            </tr>
+            <td align="right">환불은행</td>
+            <td align="left">
+                <select id="refundBankCd" name="refundBankCd">
+                    <option value="002">KDB산업</option>
+                    <option value="003">기업</option>
+                    <option value="004">국민</option>
+                    <option value="011">농협</option>
+                    <option value="020">우리</option>
+                    <option value="081">하나</option>
+                    <option value="088">신한</option>
+                    <option value="090">카카오뱅크</option>
+                </select>
+            </td>
+            </tr>
+            <tr>
+                <td align="right">환불계좌 </td>
+                <td align="left"><input type="text" name="refundAccnt" value=""></td>
+            </tr>
+            <tr>
+                <td align="right">환불계좌주 </td>
+                <td align="left"><input type="text" name="refundNm" value="홍길동"></td>
+            </tr>
+        </table>
+    </form>
+    <button onclick="document.stCancel.submit()">결제취소</button>
+</div>
+</body>
+</html>

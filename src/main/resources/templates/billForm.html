@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>결제</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://pg.minglepay.co.kr/js/pgAsistant.js"></script>
+</head>
+<body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        SendPay(document.payInit);
+    });
+
+    function pay_result_submit(){
+        payResultSubmit()
+    }
+
+    function pay_result_close(){
+        alert('결제를 취소하였습니다.');
+    }
+</script>
+<div style="text-align:center;">
+    <div id="sampleInput" class="paypop_con" style="padding:20px 15px 35px 15px;display: inline-block;float: inherit;">
+        <form name="payInit" method="post" id="payInit" action="/bill/issue">
+            <input type="text" name="payMethod" th:value="${req.payMethod}">
+            <input type="text" name="goodsNm" th:value="${req.goodsNm}">
+            <input type="text" name="ordNo" th:value="${req.ordNo}">
+            <input type="text" name="goodsAmt" th:value="${req.goodsAmt}">
+            <input type="text" name="ordNm" th:value="${req.ordNm}">
+            <input type="text" name="ordTel" th:value="${req.ordTel}">
+            <input type="text" name="ordEmail" th:value="${req.ordEmail}">
+            <input type="text" name="mbsUsrId" th:value="${req.mbsUsrId}">
+            <input type="text" name="returnUrl" th:value="${req.returnUrl}">
+            <input type="text" name="returnUrl" th:value="${req.billHpFlg}">
+            <input type="text" name="ediDate" th:value="${req.ediDate}"><!-- 전문 생성일시 -->
+            <input type="text" name="encData" th:value="${req.encData}"><!-- 해쉬값 -->
+            <input type="text" name="trxCd" th:value="${req.trxCd}">
+        </form>
+    </div>
+</div>
+<div id="mask"></div>
+<div class="window">
+    <div class="cont">
+        <iframe id="pay_frame" name="pay_frame" width="100%" height="500" marginwidth="0" marginheight="0"
+                frameborder="no" scrolling="yes"></iframe>
+    </div>
+</div>
+</body>
+</html>

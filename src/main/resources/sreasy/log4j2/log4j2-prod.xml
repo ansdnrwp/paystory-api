@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSSZ} [%t] %-5level %logger{36} - %msg%n</Property>
+		<Property name="PROJECT_NAME">paystory-api</Property>
+		<Property name="LOG_DIR">/home/app/selfcrtfc/logs</Property>
+		<Property name="LOG_FILE_NAME">${PROJECT_NAME}</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_FORMAT}"/>
+		</Console>
+
+		<RollingFile name ="RollingFile">
+			<FileName>${LOG_DIR}/${LOG_FILE_NAME}.log</FileName>
+			<FilePattern>${LOG_DIR}/%d{yyyyMMdd}_${LOG_FILE_NAME}_%i.gz</FilePattern>
+			<PatternLayout>
+				<Pattern>${LOG_FORMAT}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="500MB"/>
+				<TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="9" fileIndex="min">
+				<Delete basePath = "${LOG_DIR}" maxDepth = "1">
+					<IfLastModified age = "10d"/>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+		<RollingFile name ="RollingErrorFile">
+			<FileName>${LOG_DIR}/error_${LOG_FILE_NAME}.log</FileName>
+			<FilePattern>${LOG_DIR}/%d{yyyyMMdd}_error_${LOG_FILE_NAME}_%i.gz</FilePattern>
+			<PatternLayout>
+				<Pattern>${LOG_FORMAT}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="500MB"/>
+				<TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="9" fileIndex="min">
+				<Delete basePath = "${LOG_DIR}" maxDepth = "1">
+					<IfLastModified age = "10d"/>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+
+		<Logger name="org.springframework.core" level="info"/>
+		<Logger name="org.springframework.beans" level="info"/>
+		<Logger name="org.springframework.context" level="info"/>
+		<Logger name="org.springframework.scheduling" level="info"/>
+
+		<Logger name="jdbc" level="off"/>
+
+		<Logger name="jdbc.sqlonly" level="info"/>
+		<Logger name="java.sql.PreparedStatement" level="off"/>
+		<Logger name="jdbc.sqltiming" level="off"/>
+		<Logger name="jdbc.audit" level="off"/>
+		<Logger name="jdbc.resultset" level="off"/>
+		<Logger name="jdbc.resultsettable" level="off"/>
+		<Logger name="jdbc.connection" level="off"/>
+
+		<Root level="info">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="RollingFile"/>
+			<AppenderRef ref="RollingErrorFile" level = "ERROR"/>
+		</Root>
+	</Loggers>
+</Configuration>
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0">
+    <title>PAY RESULT</title>
+    <style>
+        .pop_wrap {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .tbl_th {
+            box-sizing: border-box;
+            line-height: 40px;
+            padding: 0px 10px 0px 10px;
+            text-align: left;
+            width: 160px;
+            background: #e9eaeb;
+            border-top: 1px solid #2a323c;
+            border-bottom: 1px solid #d4d6d8;
+            font-size: 15px;
+            font-weight: normal;
+            color: #333;
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+        }
+
+        .tbl_td {
+            box-sizing: border-box;
+            line-height: 40px;
+            padding: 0px 10px 0px 10px;
+            text-align: left;
+            border-top: 1px solid #2a323c;
+            border-bottom: 1px solid #d4d6d8;
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 100%; text-align: center;">
+    <div id="sampleInput" style="display: inline-block; padding:0 10px; margin:0 auto;">
+        <form name="payResult" action="/api/pg/standard/cancelForm" method="get">
+        <table style="border-spacing:0;">
+            <tbody>
+            <tr>
+                <td colspan="3"><p
+                        style="margin:10px 0 10px; text-align:center; font-size:34px; color:#2a323c; font-family:'Malgun Gothic','맑은 고딕',sans-serif;">
+                    결제 결과</p></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table style="border-collapse:collapse; width:100%">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="tbl_th">결과 내용</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="'[' + ${res.resultCd} + ']' + ${res.resultMsg}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">결제수단</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.payMethod}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">금액</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.amt}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">거래아이디</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.tid}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">주문번호</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.ordNo}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">구매자명</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.ordNm}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">상품명</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.goodsName}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">카드사</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.fnNm}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="tbl_th">할부개월</th>
+                        </tr>
+                        <tr>
+                            <td class="tbl_td" th:text="${res.quota}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+        <button onclick="document.payResult.submit()">취소</button>
+    </div>
+</div>
+</body>
+</html>

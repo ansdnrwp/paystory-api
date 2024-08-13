@@ -1,0 +1,91 @@
+spring:
+  profiles:
+    group:
+      "global": "global-local"
+      "sreasy-local": "sreasy-local,sreasy-cmmn"
+      "sreasy-dev": "sreasy-dev,sreasy-cmmn"
+      "sreasy-prod": "sreasy-prod,sreasy-cmmn"
+    active: sreasy-local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "global-local"
+server:
+  port: 21000
+
+bill:
+  mid: pstest102m
+  key: 6yJkdUNT9Kql3HjbyxW4jwC+7dPEVb4hhc1AOXOIJOM3JZBLJK4AE4cAZXqxRnW0MBdySp5nvWq3Uo2PXirdiA==
+
+standard:
+  mid: pstest100m
+  key: RD0ZhTu7aedJUxCvUPi4os7tPc4uCoS5oATEFgGSl7GJ4F1x8I5CW7i+xkdMYwowez+qO5YEnUcvjlqFQN+kVw==
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "sreasy-cmmn"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "sreasy-local"
+server:
+  port: 9064
+logging:
+  config: classpath:sreasy/log4j2/log4j2-local.xml
+
+bill:
+  mid: pstest102m
+  key: 6yJkdUNT9Kql3HjbyxW4jwC+7dPEVb4hhc1AOXOIJOM3JZBLJK4AE4cAZXqxRnW0MBdySp5nvWq3Uo2PXirdiA==
+
+standard:
+  mid: pstest100m
+  key: RD0ZhTu7aedJUxCvUPi4os7tPc4uCoS5oATEFgGSl7GJ4F1x8I5CW7i+xkdMYwowez+qO5YEnUcvjlqFQN+kVw==
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "sreasy-dev"
+server:
+  port: 9064
+logging:
+  config: classpath:sreasy/log4j2/log4j2-dev.xml
+
+bill:
+  mid: pstest102m
+  key: 6yJkdUNT9Kql3HjbyxW4jwC+7dPEVb4hhc1AOXOIJOM3JZBLJK4AE4cAZXqxRnW0MBdySp5nvWq3Uo2PXirdiA==
+
+standard:
+  mid: pstest100m
+  key: RD0ZhTu7aedJUxCvUPi4os7tPc4uCoS5oATEFgGSl7GJ4F1x8I5CW7i+xkdMYwowez+qO5YEnUcvjlqFQN+kVw==
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "sreasy-prod"
+server:
+  port: 9064
+logging:
+  config: classpath:sreasy/log4j2/log4j2-prod.xml
+
+bill:
+  mid: onandont2m
+  key: X7zg8DP9xOQqbLW8uPYJyOaoMQVvF871drPMuRsn4q6n/LT4YCafwmTI4d7aPS2Ow+JDr8hbZlUFCKsiujoB2A==
+
+standard:
+  mid: onandont1m
+  key: b65qv05rLm0BUWN9nHKOYMDSUeGlw8/eKh0qH7IiXbaj79CcHGSBmAJHVMd76iOwS35nGMernlnBh6najmE1dA==
+
+---
